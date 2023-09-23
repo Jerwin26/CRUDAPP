@@ -1,0 +1,50 @@
+﻿@model CRUDAPP.Models.User
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-primary text-white text-center">
+                    <h2>Login</h2>
+                </div>
+                <div class="card-body">
+                    @using (Html.BeginForm("Login", "User", FormMethod.Post, new { @class = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Username, new { @class = "font-weight-bold" })
+                            @Html.TextBoxFor(model => model.Username, new { @class = "form-control", placeholder = "Enter your username" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, new { @class = "font-weight-bold" })
+                            @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter your password" })
+                        </div>
+                        <br />
+                        <button type="submit" class="btn btn-primary btn-block">Login</button>
+                    }
+                </div>
+            </div>
+            @if (!string.IsNullOrEmpty(ViewBag.msg))
+            {
+                <div class="alert alert-danger mt-3">
+                    @ViewBag.msg
+                </div>
+            }
+            <div class="text-center mt-3">
+                <a href="https://localhost:44323/User/AddUser" class="btn btn-link">Register a new account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .form {
+        padding: 20px;
+    }
+</style>

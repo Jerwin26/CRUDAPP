@@ -1,0 +1,138 @@
+﻿@model IEnumerable<CRUDAPP.Models.User>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Get All User Details</title>
+    
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .container {
+            margin-top: 20px;
+            margin-left:10px;
+        }
+
+        h2 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            width:fit-content;
+            text-align: center;
+        }
+
+        th {
+            padding:20px;
+       
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: white;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+            }
+
+        .profile-image {
+            max-width: 70px;
+            max-height: 70px;
+            border-radius: 50%;
+        }
+
+        .actions {
+            white-space: nowrap;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header-container d-flex justify-content-between align-items-center">
+            <h2>User infromation</h2>
+            <a href="@Url.Action("AddUser", "User")" class="btn btn-primary">Create New</a>
+        </div>
+    </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Date of Birth</th>
+                            <th>Gender</th>
+                            <th>Address</th>
+                            <th>City</th>
+                            <th>State</th>
+                            <th>Postal Code</th>
+                            <th>Country</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Username</th>
+                            <th>Password</th>
+                            <th>Profile Picture</th>
+                            <th class="actions">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.DateOfBirth)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Gender)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                <td>@Html.DisplayFor(modelItem => item.City)</td>
+                                <td>@Html.DisplayFor(modelItem => item.State)</td>
+                                <td>@Html.DisplayFor(modelItem => item.PostalCode)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Country)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Username)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Password)</td>
+                                <td>
+                                    @{
+                                        if (item.ProfilePicture != null)
+                                        {
+                                            string base64string = Convert.ToBase64String(item.ProfilePicture);
+                                            <img src="data:image;base64,@base64string" alt="ProfilePicture" class="profile-image" />
+                                        }
+                                    }
+                                </td>
+                                <td class="actions">
+                                    <a href="@Url.Action("EditUser", "User", new { id = item.UserID })" class="btn btn-primary">Edit</a>
+                                    <a href="@Url.Action("DeleteUser", "User", new { id = item.UserID })" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    
+</body>
+</html>
